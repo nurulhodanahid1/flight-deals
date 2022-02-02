@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Col, Row, Form } from 'react-bootstrap';
-import { Modal, Button } from 'react-bootstrap';
+import { Col, Row, Form, Container, Modal, Button } from 'react-bootstrap';
 import { useForm, FormProvider } from "react-hook-form";
 import From from '../From/From';
+import Voucher from '../Voucher/Voucher';
 import PassengersTravel from '../PassengersTravel/PassengersTravel';
 import To from '../To/To';
 
@@ -14,6 +14,7 @@ const BookingForm = () => {
         const bookingData = {
             from: data.from,
             to: data.to,
+            code: data.code,
             class: data.class,
         };
         setReceivedBookingData(bookingData);
@@ -25,10 +26,10 @@ const BookingForm = () => {
     const handleShow = () => setShow(true);
     return (
         <>
-            <div>
+            <Container>
                 <h1>Flight deals with Virgin Atlantic</h1>
                 <FormProvider {...methods} >
-                    <form onSubmit={methods.handleSubmit(onSubmit)} >
+                    <Form onSubmit={methods.handleSubmit(onSubmit)} >
                         <Row>
                             <Col><From></From></Col>
                             <Col><To></To></Col>
@@ -36,12 +37,12 @@ const BookingForm = () => {
                         </Row>
                         <Row>
                             <Col><PassengersTravel></PassengersTravel></Col>
-                            <Col>2 of 3</Col>
+                            <Col><Voucher></Voucher></Col>
                             <Col><input type="submit" onClick={handleShow} /></Col>
                         </Row>
-                    </form>
+                    </Form>
                 </FormProvider>
-            </div>
+            </Container>
 
 
             <Modal
@@ -54,7 +55,7 @@ const BookingForm = () => {
                     <Modal.Title>Modal title</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Hello{receivedBookingData.from}
+                    Hello{receivedBookingData?.from}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
