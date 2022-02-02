@@ -9,7 +9,7 @@ const To = () => {
     return (
         <div className="font-destination">
             <Form.Label>To</Form.Label>
-            <Form.Control {...register("to")} type="text" placeholder="Select destination" />
+            <Form.Control className="from-to" {...register("to")} type="text" placeholder="Select destination" />
             <FontAwesomeIcon className="icon" icon={faMapMarkerAlt} />
         </div>
     );

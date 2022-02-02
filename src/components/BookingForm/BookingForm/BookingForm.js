@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import { Col, Row, Form, Container, Modal, Button } from 'react-bootstrap';
 import { useForm, FormProvider } from "react-hook-form";
 import From from '../From/From';
 import Voucher from '../Voucher/Voucher';
 import PassengersTravel from '../PassengersTravel/PassengersTravel';
 import To from '../To/To';
+import DepartureReturn from '../DepartureReturn/DepartureReturn';
+
+export const PassengerContext = createContext();
 
 const BookingForm = () => {
+    const [passengersDetails, setPassengersDetails] = useState();
+    console.log("p", passengersDetails);
     const [receivedBookingData, setReceivedBookingData] = useState();
     console.log("data:", receivedBookingData);
     const methods = useForm();
@@ -20,7 +25,6 @@ const BookingForm = () => {
         setReceivedBookingData(bookingData);
     };
 
-
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -33,10 +37,14 @@ const BookingForm = () => {
                         <Row>
                             <Col><From></From></Col>
                             <Col><To></To></Col>
-                            <Col>3 of 3</Col>
+                            <Col><DepartureReturn></DepartureReturn></Col>
                         </Row>
                         <Row>
-                            <Col><PassengersTravel></PassengersTravel></Col>
+                            <Col>
+                                <PassengerContext.Provider value={[passengersDetails, setPassengersDetails]}>
+                                    <PassengersTravel></PassengersTravel>
+                                </PassengerContext.Provider>
+                            </Col>
                             <Col><Voucher></Voucher></Col>
                             <Col><input type="submit" onClick={handleShow} /></Col>
                         </Row>
